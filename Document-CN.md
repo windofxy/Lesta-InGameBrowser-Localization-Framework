@@ -47,7 +47,7 @@ value: 字符串 对应的翻译文本<br>
     localization.set("За новогодними контейнерами!", "新年补给箱!");
 
 效果图<br>
-TODO<br><br>
+![覆盖模式效果图](https://github.com/user-attachments/assets/eb97ea84-a1b7-48da-9ed4-ab2b431649ad)<br><br>
 
 ### 替换模式
 
@@ -69,4 +69,4 @@ TODO<br><br>
     );
 
 效果图<br>
-TODO<br><br>
+![替换模式效果图](https://github.com/user-attachments/assets/421adaa0-c440-4946-b868-3b5e825fc97e)<br><br>
