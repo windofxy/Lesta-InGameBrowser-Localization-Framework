@@ -6,15 +6,15 @@
 ## 框架内置变量
 
 框架内置了两个集合（Set）<br>
-detect_elements: 存储需要翻译的HTML元素及翻译配置，以及替换模式下对应的翻译文本<br>
-translation: 存储覆盖模式下对应的翻译文本<br>
+`detect_elements`: 存储需要翻译的HTML元素及翻译配置，以及替换模式下对应的翻译文本<br>
+`translation`: 存储覆盖模式下对应的翻译文本<br>
 
 ### detect_elements
 
-数值以格式为[key ,value]的数组作为值存储<br>
-key: 字符串 CSS选择器<br>(如 ``"#wows-react-tooltip-body .Tooltip_accountPremium.Tooltip_activeAccountPremium"``)<br>用以选择要翻译的网页元素<br>
+数值以格式为`[key ,value]`的数组作为值存储<br>
+`key`: 字符串 CSS选择器<br>(如 ``"#wows-react-tooltip-body .Tooltip_accountPremium.Tooltip_activeAccountPremium"``)<br>用以选择要翻译的网页元素<br>
 可参考文档 [菜鸟教程-CSS选择器](https://www.runoob.com/cssref/css-selectors.html) [Document.querySelectorAll](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelectorAll)<br><br>
-value: js对象，结构如下<br>
+`value`: js对象，结构如下<br>
 
     {
         isReplace: true,
@@ -26,14 +26,14 @@ value: js对象，结构如下<br>
         ],
     }
 
-isReplace: 布尔值 是否使用替换模式 可选 不填默认不使用替换模式<br>
-isReplaceHTML 布尔值 选择替换InnerText还是InnerHTML 可选 不填默认替换InnerText<br>
-translation: 数组 替换模式使用的翻译文本 替换模式下必选<br>
+`isReplace`: 布尔值 是否使用替换模式 可选 不填默认不使用替换模式<br>
+`isReplaceHTML`: 布尔值 选择替换InnerText还是InnerHTML 可选 不填默认替换InnerText<br>
+`translation`: 数组 替换模式使用的翻译文本 替换模式下必选<br>
 
 ### translation
 
-key: 字符串 要替换的原始文本<br>
-value: 字符串 对应的翻译文本<br>
+`key`: 字符串 要替换的原始文本<br>
+`value`: 字符串 对应的翻译文本<br>
 
 ---
 
