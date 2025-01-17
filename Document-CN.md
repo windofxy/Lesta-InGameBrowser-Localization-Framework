@@ -16,6 +16,7 @@
 可参考文档 [菜鸟教程-CSS选择器](https://www.runoob.com/cssref/css-selectors.html) [Document.querySelectorAll](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelectorAll)<br><br>
 `value`: js对象，结构如下<br>
 
+```javascript
     {
         isReplace: true,
         isReplaceHTML: true,
@@ -25,6 +26,7 @@
             ["часов", "时"],
         ],
     }
+```
 
 `isReplace`: 布尔值 是否使用替换模式 可选 不填默认不使用替换模式<br>
 `isReplaceHTML`: 布尔值 选择替换InnerText还是InnerHTML 可选 不填默认替换InnerText<br>
@@ -45,11 +47,13 @@
 
 示例<br>
 
+```javascript
     //添加HTML元素（覆盖模式）
     detect_elements.add([".Accordion_title", { isReplace: false }]);
     
     //添加翻译文本
     translation.set("За новогодними контейнерами!", "新年补给箱!");
+```
 
 效果图<br>
 ![覆盖模式效果图](https://github.com/user-attachments/assets/eb97ea84-a1b7-48da-9ed4-ab2b431649ad)<br><br>
@@ -60,6 +64,7 @@
 
 示例<br>
 
+```javascript
     //添加HTML元素（替换模式）
     detect_elements.set([
         "#wows-react-tooltip-body .Tooltip_accountPremium.Tooltip_activeAccountPremium",
@@ -72,6 +77,7 @@
             ],
         }
     ]);
+```
 
 效果图<br>
 ![替换模式效果图](https://github.com/user-attachments/assets/421adaa0-c440-4946-b868-3b5e825fc97e)<br><br>
@@ -149,10 +155,12 @@
 
 示例代码
 
+```javascript
     //军团网页域名
     if (window.location.host === "clans.korabli.su")
     {
         //在里面输入汉化代码
     }
+```
 
 ---
