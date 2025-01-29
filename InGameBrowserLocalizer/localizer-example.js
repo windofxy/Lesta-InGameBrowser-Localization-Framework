@@ -1,12 +1,10 @@
-//工具代码
-//获取网页元素
-//document.querySelectorAll("#members-table-control-block-sticky-container .wru__ClanMember__memberRole")[0].innerText;
-//获取当前url
-//console.log(window.location.host);
-
 //---------------------------------------------------军团----------------------------------------------------------
 
-if (window.location.host === "clans.korabli.su") {
+if (!window.__localizer_clan_loaded__ && window.location.host === "clans.korabli.su") {
+    window.__localizer_clan_loaded__ = true;
+    let detect_elements = window.__localizer__.detect_elements;
+    let translation = window.__localizer__.translation;
+    let Localizer_Init = window.__localizer__.Localizer_Init;
     //---------------------------侧栏菜单-----------------------------------
 
     detect_elements.add([
@@ -22,6 +20,7 @@ if (window.location.host === "clans.korabli.su") {
                 ["РЕКОМЕНДАЦИИ", "建议"],
                 ["КАЗНА КЛАНА", "军团金库"],
                 ["МОРСКОЕ СРАЖЕНИЕ", "海军大战"],
+                ['ЗАПРОСЫ', "军团请求"],
                 ["КЛАНОВЫЕ БОИ", "军团战"],
             ],
         },
@@ -33,17 +32,6 @@ if (window.location.host === "clans.korabli.su") {
 
     detect_elements.add([".Tooltip_body_2dtFl.Tooltip_withMouseClick_1s0X-", {}]);
     detect_elements.add([".Tooltip_body_2dtFl p", {}]);
-
-    detect_elements.add([
-        "#wows-react-tooltip-body .wru__Tooltip__header.wru__Tooltip__isBold span",
-        {
-            isReplace: true,
-            translation: [
-                ["Этап", "阶段"],
-                ["урона", "伤害"],
-            ],
-        },
-    ]);
 
     //----------------------------------------------------------------------
 
@@ -108,16 +96,16 @@ if (window.location.host === "clans.korabli.su") {
     translation.set('Получите 1000 нефти', "获得 1,000 石油");
     translation.set('Получите 50 000 нефти', "获得 50,000 石油");
     translation.set('Примите игрока в клан', "接受一位玩家加入军团");
-    translation.set('Приобретите улучшение на Военной базе клана', "购买用于军团海军基地的扩展");
-    translation.set('Соберите в клане не менее 10 игроков', "你的军团拥有至少10名玩家");
-    translation.set('Соберите в клане не менее 7 активных игроков', "你的军团拥有至少7名活跃玩家");
+    translation.set('Приобретите улучшение на Военной базе клана', "升级军团海军基地的建筑");
+    translation.set('Соберите в клане не менее 10 игроков', "您的军团拥有至少10名玩家");
+    translation.set('Соберите в клане не менее 7 активных игроков', "您的军团拥有至少7名活跃玩家");
     translation.set('Пройдите любую Операцию отрядом из 4 или более игроков из вашего клана, выполнив 5 дополнительных задач', "4名或以上的军团成员组队完成任意行动以及完成其5个次要目标");
     translation.set('Примите участие в Морском сражении', "参与海军大战");
     translation.set('Пройдите этап Подготовки в Морском сражении', "完成海军大战中的准备阶段");
     translation.set('Победите в Морском сражении', "在海军大战中取得胜利");
     translation.set('Наберите 500 очков рейтинга в Морском сражении', "在海军大战中获得500评价点数");
     translation.set('Сыграйте бой в Клановых боях', "参加一场军团战");
-    translation.set('Выиграйте бой в Клановых боях', "TODO");
+    translation.set('Выиграйте бой в Клановых боях', "在军团战中取得胜利");
     translation.set('Сыграйте бой в Клановых боях в лиге Бури', "参加一场在狂风联盟的军团战");
     translation.set('Выполните все задачи клана', "完成全部军团任务");
     translation.set('Изменить требования можно в контекстном меню названия клана на Военной базе клана.', "军团招募要求可以在海军基地中的“军团名称操作菜单”中进行更改");
@@ -142,7 +130,7 @@ if (window.location.host === "clans.korabli.su") {
     );
     translation.set(
         'Операции — это особый тип боя, один из видов сценарных боёв. Для участия в них необходимо выбрать соответствующий тип боя в Порту.',
-        "行动模式是特殊类型的剧情。若要参与，你需要在港口中选择相应的战斗模式"
+        "行动模式是特殊类型的剧情。若要参与，您需要在港口中选择相应的战斗模式"
     );
     translation.set(
         'Получить дополнительную информацию о Морском сражении и зарегистрировать клан для участия в нём можно в разделе «Морское сражение».',
@@ -193,8 +181,8 @@ if (window.location.host === "clans.korabli.su") {
             translation: [
                 ["Победить в бою", "战斗胜利"],
                 ["Получить достижение", "获得成就"],
-                ["«Слаженная атака»", "TODO"],
-                ["«Плечом к плечу»", "TODO"],
+                ["«Слаженная атака»", "“协同攻击”"],
+                ["«Плечом к плечу»", "“并肩奋战”"],
             ],
         },
     ]);
@@ -240,18 +228,18 @@ if (window.location.host === "clans.korabli.su") {
         "获取一定数量的星星来获取奖励"
     );
     translation.set("Награды", "奖励");
-    translation.set("Получайте звёзды и соответствующие награды.", "TODO");
+    translation.set("Получайте звёзды и соответствующие награды.", "获得星星和相应奖励。");
     translation.set("Всего получено:", "总共收到：");
     translation.set("Получение звёзд", "如何获取星星");
     translation.set(
         "Чтобы получить звёзды, вам необходимо выполнять определённые задачи в составе отряда со следующими участниками клана:",
-        "如果想要获取星星，你需要和以下的军团战友们一起组建小队完成任务"
+        "如果想要获取星星，您需要和以下的军团战友们一起组建小队完成任务"
     );
     translation.set("Награда за получение", "获取星星得到的奖励");
     translation.set("Кредиты", "银币");
     translation.set("Малый контейнер", "小型补给箱");
-    translation.set("Sierra", "TODO");
-    translation.set("Стандартный сигнал", "TODO");
+    translation.set("Sierra", "Sierra信号旗");
+    translation.set("Стандартный сигнал", "普通信号旗");
     translation.set("Элитный опыт командиров", "精英指挥官经验");
     translation.set("Контейнер «Дальние странствия»", "遥远之旅补给箱");
     translation.set("Сталь", "钢铁");
@@ -299,6 +287,13 @@ if (window.location.host === "clans.korabli.su") {
     detect_elements.add(["#wows-react-tooltip-body .wru__Tooltip__header", {}]);
     detect_elements.add(["#wows-react-tooltip-body .wru__Tooltip__body", {}]);
     detect_elements.add([".Tooltip_tooltip_1s2X5 .Tooltip_body_2dtFl p", {}]);
+    detect_elements.add([".Members_membersControlBlock_LDipS .wru__ButtonGroup__group .wru__Button__inner span", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__header", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .MembersOperationDialog_center_sbmXV .MembersOperationDialog_title_2M14r", {}]);
+    detect_elements.add(["#wows-react-tooltip-body .wru__Tooltip__header", {}]);
+    detect_elements.add(["#wows-react-tooltip-body .wru__Tooltip__body div p dt", {}]);
+    detect_elements.add(["#wows-react-tooltip-body .wru__Tooltip__body div p dd", {}]);
+    detect_elements.add([".wru__Table__table .wru__Table__tbody .wru__Table__tr .wru__ContextMenu__menu .wru__ContextMenu__inner .wru__ContextMenu__item", {}]);
 
     detect_elements.add([
         "#members-table-control-block-sticky-container .MembersTableHead_itemText_1SHKR",
@@ -325,6 +320,21 @@ if (window.location.host === "clans.korabli.su") {
             ],
         },
     ]);
+    detect_elements.add([
+        ".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .MembersOperationDialog_center_sbmXV .MembersOperationDialog_select_fP_cT .wru__Menu__item div",
+        {
+            isReplace: true,
+            isReplaceHTML: true,
+            translation: [
+                ["Командующий", "军团长"],
+                ["Заместитель командующего", "副军团长"],
+                ["Военком", "招募官"],
+                ['Кадровый офицер', "现役军官"],
+                ['Офицер', "前线军官"],
+                ['Курсант', "海军少尉"],
+            ]
+        }
+    ])
 
     translation.set("Случайный бой", "随机战");
     translation.set("Кооперативный бой", "联合作战");
@@ -396,6 +406,43 @@ if (window.location.host === "clans.korabli.su") {
     );
     translation.set("Количество дней в клане", "在军团中的天数");
     translation.set("Время последнего боя", "上次参与战斗的时间");
+    translation.set('ИЗМЕНИТЬ ДОЛЖНОСТЬ', "更改职位");
+    translation.set('ИСКЛЮЧИТЬ', "踢出军团");
+    translation.set('Исключить игроков из клана:', "将以下玩家踢出军团：");
+    translation.set('СМЕНА ДОЛЖНОСТИ', "更改职位");
+    translation.set('Изменить должность игроков:', "要更改职位的玩家：");
+    translation.set('Назначить на должность:', "更改为该职位：");
+    translation.set('Должности и полномочия', "职务与权限");
+    translation.set('Командующий', "军团长");
+    translation.set('Заместитель командующего', "副军团长");
+    translation.set('Военком', "招募官");
+    translation.set('Кадровый офицер', "现役军官");
+    translation.set('Офицер', "前线军官");
+    translation.set('Курсант', "海军少尉");
+    translation.set(
+        'Полный набор полномочий. Управление кланом, его ресурсами и составом, постройка зданий на клановой базе.',
+        "全面的权限，包括军团本身、资源、人员的管理以及在海军基地中的建筑设施。"
+    );
+    translation.set(
+        'Те же полномочия, что и у командующего, за исключением роспуска клана.',
+        "除了解散军团外，其他权限等同于军团长。"
+    );
+    translation.set(
+        'Приглашение и принятие в клан.',
+        "可以发送军团邀请或接受军团申请。"
+    );
+    translation.set(
+        'Без полномочий.',
+        "没有权限。"
+    );
+    translation.set('ИЗМЕНИТЬ', "更改");
+    translation.set('Отправить сообщение', "发送消息");
+    translation.set('Профиль', "账号信息");
+    translation.set('Копировать никнейм', "复制昵称");
+    translation.set('Изменить должность', "更改职位");
+    translation.set('Исключить из клана', "踢出军团");
+    translation.set('ИСКЛЮЧЕНИЕ ИЗ КЛАНА', "踢出军团");
+
 
     //----------------------------------------------------------------------
 
@@ -417,38 +464,38 @@ if (window.location.host === "clans.korabli.su") {
         {
             isReplace: true,
             translation: [
-                ["Позволяет распределять ресурсы клана и регулярные награды.", "TODO"],
+                ["Позволяет распределять ресурсы клана и регулярные награды.", "允许您分配军团资源和奖励"],
                 ["Максимальная численность клана: ", "军团最大成员数："],
                 [
                     ". Есть возможность играть в овых боях, используя второй рейтинг",
-                    "TODO",
+                    "。可以参加更高一级军团战",
                 ],
-                ["от стоимости обслуживания кораблей I–X уровней", "TODO"],
-                ["от стоимости исследуемых кораблей I–X уровней", "TODO"],
-                ["к опыту за бой на кораблях I–X уровней", "TODO"],
-                ["к свободному опыту за бой на кораблях I–X уровней", "TODO"],
-                ["к опыту командира за бой", "TODO"],
-                ["к количеству получаемого угля", "TODO"],
-                ["Символизирует успех и достижения вашего клана.", "TODO"],
+                ["от стоимости обслуживания кораблей I–X уровней", "I-X级战舰的维护费用"],
+                ["от стоимости исследуемых кораблей I–X уровней", "I-X级可研发战舰的购买价格"],
+                ["к опыту за бой на кораблях I–X уровней", "I-X级战舰参加战斗获得的经验"],
+                ["к свободному опыту за бой на кораблях I–X уровней", "I-X级战舰参加战斗所得的全局经验收益"],
+                ["к опыту командира за бой", "参加战斗所得的指挥官经验收益"],
+                ["к количеству получаемого угля", "军团成员获得的煤炭量"],
+                ["Символизирует успех и достижения вашего клана.", "象征着您所在军团的战功与成就。"],
                 [
                     "Отображает активность клана в Случайных, Ранговых и Кооперативных боях за последний месяц",
-                    "TODO",
+                    "显示您军团成员上个月在随机战、排位战和联合作战中的活跃水平",
                 ],
             ],
         },
     ]);
 
     translation.set("ЗАЧЕМ НУЖЕН КЛАН?", "为什么要加入军团");
-    translation.set("Скидки и бонусы", "折扣和奖励");
+    translation.set("Скидки и бонусы", "折扣和加成");
     translation.set("Командная игра", "团队合作");
     translation.set("Уникальные награды", "独特的奖励");
     translation.set(
         "Просто играйте в ваши любимые типы боя и получайте дополнительный опыт за бой, скидки на исследуемые корабли и многие другие бонусы!",
-        "无论进行什么类型的战斗都可以获得额外的经验值，还有战舰研发费用的折扣，以及许多其他奖励！"
+        "无论进行什么类型的战斗都可以获得额外的经验值，还有可研发战舰购买价格的折扣，以及更多加成！"
     );
     translation.set(
         "С помощью клана вы не только найдёте себе товарищей для игры в отряде, но и получите доступ к особому типу боя ― Клановые бои.",
-        "军团不仅能帮助你找到小队模式的队友，还能让你参与军团战这一特别的战斗类型。"
+        "军团不仅能帮助您找到小队模式的队友，还能让您参与军团战这一特别的战斗类型。"
     );
     translation.set(
         "Играйте в клане, получайте ресурсы и обменивайте их на уникальные корабли и другое полезное имущество!",
@@ -463,7 +510,7 @@ if (window.location.host === "clans.korabli.su") {
     );
     translation.set(
         "Тогда смело нажимайте кнопку «Xочу в клан», и вам подберут несколько наиболее подходящих вам кланов на основе ваших игровых предпочтений и личной статистики.",
-        "不要犹豫，马上点击“加入军团”按钮。我们会根据你的游戏偏好和个人统计数据，为你推荐几个最适合你的军团。"
+        "不要犹豫，马上点击“加入军团”按钮。我们会根据您的游戏偏好和个人统计数据，为您推荐几个最适合您的军团。"
     );
     translation.set("Корабли", "战舰");
     translation.set("Опыт", "经验");
@@ -480,11 +527,11 @@ if (window.location.host === "clans.korabli.su") {
     translation.set("Ресурсы и награды", "资源与奖励");
     translation.set(
         "Хотите быть в курсе достижений товарищей по клану? На вкладке «Состав клана» вы можете посмотреть не только имена и должности всех соклановцев, но также их статистику по каждому типу боя и количество заработанной нефти.",
-        "想时刻关注军团战友获得的成就吗？在“军团成员”页面中，你不仅可以查看全部军团成员的名字和职务，还可以查看他们每种战斗类型的统计数据和获得的石油数量。"
+        "想时刻关注军团战友获得的成就吗？在“军团成员”页面中，您不仅可以查看全部军团成员的名字和职务，还可以查看他们每种战斗类型的统计数据和获得的石油数量。"
     );
     translation.set(
         "Ещё больше бонусов! Дополнительный опыт для командира, а также увеличенная добыча стали и угля. Строения теперь компактно отображены справа, и вы легко сможете следить за состоянием базы.",
-        "还有更多奖励！指挥官获得额外经验值，钢铁和煤炭的产量也会得到提升。建筑现在显示在右侧的紧凑视图中，您可以轻松追踪基地的状态。"
+        "还有更多加成！指挥官获得额外经验值，钢铁和煤炭的产量也会得到提升。建筑现在显示在右侧的紧凑视图中，您可以轻松追踪基地的状态。"
     );
     translation.set(
         "В игре «Мир кораблей» есть различные ресурсы, которые можно обменять на уникальное или просто полезное имущество. А с помощью клана вы можете заработать их существенно больше, приняв участие в Клановых боях или построив определённые здания в Военно-морской базе.",
@@ -492,30 +539,30 @@ if (window.location.host === "clans.korabli.su") {
     );
     translation.set(
         "Нефть — Клановый ресурс для возведения строений на Военно-морской базе. Зарабатывается при получении контейнеров, а также за некоторые боевые задачи.",
-        "TODO"
+        "石油——用于在海军基地建造建筑的军团资源。可通过收到补给箱和执行某些作战任务获得。"
     );
     translation.set(
         "Уголь — Персональный ресурс, который обменивается на большинство предметов в Адмиралтействе. Его можно получить из контейнеров, а также за различные боевые задачи.",
-        "TODO"
+        "煤炭——一种个人资源，可在兵工厂兑换数量众多的物品。它可以从补给箱以及各种作战任务中获得。"
     );
     translation.set(
         "Сталь — Персональный ресурс, который обменивается на некоторые корабли в Адмиралтействе, а также может быть конвертирован в значительное количество угля. Его можно получить в Клановых и Ранговых боях, а также в суперконтейнерах.",
-        "TODO"
+        "钢铁——一种个人资源，可在兵工厂兑换一些战舰，也可转化为大量煤炭。它可以在军团战、排位战以及超级补给箱中获得。"
     );
     translation.set(
         "Чемпионские жетоны — Персональный ресурс, который обменивается на постоянные камуфляжи для определённых кораблей в Адмиралтействе. Его можно получить за высокие результаты в Ранговых и Клановых боях.",
-        "TODO"
+        "冠军代币——一种个人资源，可在兵工厂为某些战舰换取永久涂装。在排位战和军团战中取得优异成绩即可获得。"
     );
     translation.set("Казначейство", "库房");
-    translation.set("Дом офицеров", "TODO");
-    translation.set("Сухой док", "TODO");
-    translation.set("Судостроительный завод", "TODO");
-    translation.set("Военно-морское училище", "TODO");
-    translation.set("Конструкторское бюро", "TODO");
-    translation.set("Академия", "TODO");
-    translation.set("Угольный порт", "TODO");
-    translation.set("Ростральная колонна", "TODO");
-    translation.set("Флот снабжения и поддержки", "TODO");
+    translation.set("Дом офицеров", "军官宿舍");
+    translation.set("Сухой док", "干船坞");
+    translation.set("Судостроительный завод", "造船厂");
+    translation.set("Военно-морское училище", "海军学院");
+    translation.set("Конструкторское бюро", "研发局");
+    translation.set("Академия", "指挥官学院");
+    translation.set("Угольный порт", "煤炭港");
+    translation.set("Ростральная колонна", "海战纪念柱");
+    translation.set("Флот снабжения и поддержки", "辅助舰队");
 
     //----------------------------------------------------------------------
 
@@ -632,7 +679,6 @@ if (window.location.host === "clans.korabli.su") {
     translation.set("СОХРАНИТЬ", "保存");
     translation.set("ЗАКРЫТЬ", "关闭");
     translation.set("Перейти к клановой базе", "前往军团基地");
-    translation.set("");
 
     //----------------------------------------------------------------------
 
@@ -678,37 +724,125 @@ if (window.location.host === "clans.korabli.su") {
     translation.set("Поступления", "应收款项");
     translation.set("Награда за выполнение задач клана", "完成军团任务的奖励");
     translation.set("НАБОРЫ ДЛЯ КЛАНА", "军团礼包");
-    translation.set("Больше угля для всех", "为所有人准备的更多煤炭");
+    translation.set("Больше угля для всех", "为每位军团成员发放煤炭");
     translation.set(
         "Контейнеры «Малый» для всех",
-        "面向所有玩家的“试试手气”补给箱"
+        "为每位军团成员发放“试试手气”补给箱"
     );
-    translation.set("Суперконтейнеры для всех", "面向所有玩家的超级补给箱");
-    translation.set("Дополнительный уголь для всех", "为所有人准备的额外煤炭");
+    translation.set("Суперконтейнеры для всех", "为每位军团成员发放超级补给箱");
+    translation.set("Дополнительный уголь для всех", "为每位军团成员发放煤炭");
     translation.set(
         "Дополнительные контейнеры «Малый» для всех",
-        "面向所有玩家的额外“试试手气”补给箱"
+        "为每位军团成员发放一个“试试手气”补给箱"
     );
     translation.set(
         "Дополнительные суперконтейнеры для всех",
-        "面向所有玩家的额外超级补给箱"
+        "为每位军团成员发放一个超级补给箱"
     );
     translation.set(
         "1&nbsp;контейнер «Больше угля» каждому участнику клана.",
-        "TODO"
+        "为每位军团成员发放一个煤炭补给箱"
     );
     translation.set(
         "5&nbsp;контейнеров «Малый» с&nbsp;вероятностью выпадения суперконтейнера каждому участнику клана.",
-        "TODO"
+        "为每位军团成员发放一个小型补给箱"
     );
     translation.set(
         "1 суперконтейнер каждому участнику клана.",
-        "每个军团成员一个超级补给箱"
+        "为每位军团成员发放一个超级补给箱"
     );
     translation.set(
         "Приобрести наборы могут только командующий и его заместители.",
         "礼包只能由军团长或者副军团长购买。"
     );
+
+    //----------------------------------------------------------------------
+
+    //----------------------------军团请求----------------------------------
+
+    detect_elements.add([".Layout_section_33WpB .Requests_tablesMenuWrap_A5R5_ .wru__Tabs__container .wru__Tabs__tabContent", {}]);
+    detect_elements.add([".Layout_section_33WpB .Requests_tablesMenuWrap_A5R5_ .wru__Link__link", {}]);
+    detect_elements.add([".Layout_section_33WpB .wru__MessageWrap__container .wru__MessageWrap__title", {}]);
+    detect_elements.add([".Layout_section_33WpB .wru__MessageWrap__container .wru__MessageWrap__message", {}]);
+    detect_elements.add([".Table_sorter_1il51", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__close", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__header", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .ParameterGroup_parameterGroupTitle_1ep-d", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__footer .wru__CheckboxWithLabel__checkboxLabel", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .wru__Dialog__content .ClanSettingsDialog_purposeParameterGroup_1ZBO7 .wru__Radio__caption", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .wru__Dialog__content .wru__CheckboxWithLabel__container .wru__CheckboxWithLabel__checkboxLabel", {}]);
+    detect_elements.add(["#wows-react-tooltip-body .Tooltip_body_2dtFl p span", {}]);
+
+    detect_elements.add([
+        ".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .wru__Dialog__content .ClanSettingsDialog_terms_1A8x9 p span",
+        {
+            isReplace: true,
+            translation: [
+                [
+                    'В целях безопасности не указывайте здесь личную информацию о себе или о ком-либо другом, так как мы не сможем защитить её в соответствии с ',
+                    "出于安全考虑，请不要在此输入有关您或其他人的个人信息，因为我们无法按照 "
+                ],
+                ['Политикой конфиденциальности', "隐私政策"],
+                ['.', " 保护这些信息。"],
+            ]
+        }
+    ]);
+    detect_elements.add([
+        ".Tooltip_tooltip_1s2X5 .Tooltip_body_2dtFl div p",
+        {
+            isReplace: true,
+            isReplaceHTML: true,
+            translation: [
+                ['отправил приглашение', "发送邀请于"],
+                ['Время для принятия решения по приглашению истекает', "对邀请作出决定的时间将截止于"],
+                ['Приглашение одобрено', "接受邀请于"],
+                ['Время для принятия решения истекло', "邀请到期于"],
+                ['в', "的"],
+            ]
+        }
+    ]);
+    detect_elements.add([
+        ".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .wru__Dialog__content span",
+        {
+            isReplace: true,
+            translation: [
+                [
+                    'Вы уверены, что хотите отозвать приглашение в клан для игрока ',
+                    "您确定要撤回对下面玩家的军团邀请吗："
+                ],
+            ]
+        }
+    ]);
+    detect_elements.add([
+        ".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__ButtonGroup__wrapper .wru__Button__inner span",
+        {
+            isReplace: true,
+            translation: [
+                ['ДА', "是"],
+                ['НЕТ', "否"],
+            ]
+        }
+    ])
+
+    translation.set('Заявки игроков', "玩家申请");
+    translation.set('Приглашения', "发出的邀请");
+    translation.set('Изменить требования клана', "更改军团要求");
+    translation.set('НЕТ АКТУАЛЬНЫХ ЗАЯВОК', "目前没有申请");
+    translation.set('Заявок на вступление в ваш клан пока нет.', "还没有人申请加入您的军团");
+    translation.set('Статус', "状态");
+    translation.set('ТРЕБОВАНИЯ КЛАНА', "军团要求");
+    translation.set('Нам интересны:', "军团偏好："); 
+    translation.set('Языки общения:', "交流语言：");
+    translation.set('Голосовая связь:', "语音聊天：");
+    translation.set('Описание клана:', "军团描述：");
+    translation.set('Предлагать клан для вступления в Рекомендательной системе', "在军团推荐系统中推荐该军团");
+    translation.set('Никаких обязательств', "不强制");
+    translation.set('Игра в отряде', "组队战斗");
+    translation.set('Клановые бои', "军团战");
+    translation.set('Голосовая связь обязательна', "必须使用语音聊天");
+    translation.set('Отозвать приглашение', "撤回邀请");
+    translation.set('ОТМЕНА ПРИГЛАШЕНИЯ', "撤回邀请");
+
 
     //----------------------------------------------------------------------
 
@@ -768,6 +902,8 @@ if (window.location.host === "clans.korabli.su") {
             translation: [
                 ["Нанесите", "造成"],
                 ["урона.", "点伤害"],
+                ["Заработайте", "获得"],
+                ["чистого опыта.", "点基础经验"],
             ],
         },
     ]);
@@ -792,24 +928,24 @@ if (window.location.host === "clans.korabli.su") {
                 ["В первые", "在海军大战的前"],
                 [
                     "дня Морского сражения вы участвуете в привычных боях. Выполните клановую задачу, чтобы получить доступ к Битве и",
-                    "天里，您仅需简单地参加常规战斗。完成军团任务以参与交战并获得",
+                    "天里，您仅需简单地参加常规战斗。完成军团任务以参与交战并获得"
                 ],
                 [
                     ". При этом можно также увеличить количество попыток для этапа Битвы.",
-                    "。在此期间，您同样也可以增加您参与交战阶段的尝试次数。",
+                    "。在此期间，您同样也可以增加您参与交战阶段的尝试次数。"
                 ],
                 ["В следующие", "在接下来的"],
                 [
                     "дня вы можете соревноваться с другим кланом в нанесении урона на кораблях разных классов и наций. Для этого у каждого игрока есть не менее",
-                    "天，使用不同类型和国家的战舰与其他军团进行伤害输出竞赛。为了这个目标，每名玩家可进行",
+                    "天，使用不同类型和国家的战舰与其他军团进行伤害输出竞赛。为了这个目标，每名玩家可进行"
                 ],
                 [
                     "попыток.",
-                    "次尝试。进入战斗前，您需要开启尝试计数器，它位于军团战果表格的上方。",
+                    "次尝试。进入战斗前，您需要开启尝试计数器，它位于军团战果表格的上方。"
                 ],
                 [
                     "Все кланы, участвующие в Морском сражении, получают нефть в качестве награды и продвигаются в рейтинге.",
-                    "所有参加海军大战的军团根据进度和评级获得相应数量的石油。",
+                    "所有参加海军大战的军团根据进度和评级获得相应数量的石油。"
                 ],
             ],
         },
@@ -820,12 +956,16 @@ if (window.location.host === "clans.korabli.su") {
             isReplace: true,
             translation: [
                 [
+                    "дня вы можете соревноваться с другим кланом в получении чистого опыта на кораблях разных классов и наций. Для этого у каждого игрока есть не менее",
+                    "天，使用不同类型和国家的战舰与其他军团进行勋带获取竞赛。为了这个目标，每名玩家可进行"
+                ],
+                [
                     "Вы можете увеличить количество попыток на этапе Подготовки. ",
-                    "您可以在准备阶段增加可用的尝试次数。",
+                    "您可以在准备阶段增加可用的尝试次数。"
                 ],
                 [
                     "Часть израсходованных попыток обновляется и может быть снова использована во время Битвы. Таким образом, играя в течение всех дней Битвы, вы можете использовать больше попыток.",
-                    "您在交战阶段用掉的一些尝试次数可能会被刷新，并可以再次使用。在交战阶段每日进行游戏，也会为您提供更多尝试次数。",
+                    "您在交战阶段用掉的一些尝试次数可能会被刷新，并可以再次使用。在交战阶段每日进行游戏，也会为您提供更多尝试次数。"
                 ],
             ],
         },
@@ -880,6 +1020,17 @@ if (window.location.host === "clans.korabli.su") {
                     "Выбрать лигу для отображения статистики",
                     "选择一个联盟段位来查看统计",
                 ],
+            ],
+        },
+    ]);
+    detect_elements.add([
+        "#wows-react-tooltip-body .wru__Tooltip__header.wru__Tooltip__isBold span",
+        {
+            isReplace: true,
+            translation: [
+                ["Этап", "阶段"],
+                ["урона", "伤害"],
+                ["опыта", "经验"],
             ],
         },
     ]);
@@ -1160,6 +1311,11 @@ if (window.location.host === "clans.korabli.su") {
     detect_elements.add([".MonumentAchievementsDialog_achievementsContainer_1uvis .wru__MessageWrap__title", {}]);
     detect_elements.add([".MonumentAchievementsDialog_achievementsContainer_1uvis .wru__MessageWrap__message", {}]);
     detect_elements.add(["#wows-react-tooltip-body .LevelTooltip_subTitle_HY-cg", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__header", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__footer .wru__ButtonGroup__group .wru__Button__inner span", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .ClanEditDialogs_clanRename_1DXRB .wru__Input__info", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .ClanLeaveDialog_confirmation_2Ms94", {}]);
+    detect_elements.add([".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .ClanLeaveDialog_info_2S5gs .wru__Message__message", {}]);
 
     detect_elements.add([
         ".we-tooltip__description",
@@ -1169,10 +1325,10 @@ if (window.location.host === "clans.korabli.su") {
             translation: [
                 ["В наличии:&nbsp;", "可用："],
                 ["Всего получено:&nbsp;", "总共收到："],
-                ["Возведение строений на&nbsp;Военно-морской базе клана.", "TODO"],
+                ["Возведение строений на&nbsp;Военно-морской базе клана.", "在军团海军基地搭建建筑"],
                 [
                     "За&nbsp;участие в&nbsp;Клановых боях и&nbsp;различных активностях. Каждый раз, когда участник клана получает любой контейнер, в&nbsp;казну его клана начисляется 10&nbsp;ед. нефти.",
-                    "TODO"
+                    "用于参加军团战和各种活动。每当军团成员获得任何补给箱时，军团库房都会获得10个单位的石油。"
                 ],
             ],
         },
@@ -1192,22 +1348,22 @@ if (window.location.host === "clans.korabli.su") {
         {
             isReplace: true,
             translation: [
-                ["Позволяет распределять ресурсы клана и регулярные награды.", "TODO"],
+                ["Позволяет распределять ресурсы клана и регулярные награды.", "允许您分配军团资源和奖励"],
                 ["Максимальная численность клана: ", "军团最大成员数："],
                 [
                     ". Есть возможность играть в овых боях, используя второй рейтинг",
-                    "TODO",
+                    "。可以参加更高一级军团战",
                 ],
-                ["от стоимости обслуживания кораблей I–X уровней", "TODO"],
-                ["от стоимости исследуемых кораблей I–X уровней", "TODO"],
-                ["к опыту за бой на кораблях I–X уровней", "TODO"],
-                ["к свободному опыту за бой на кораблях I–X уровней", "TODO"],
-                ["к опыту командира за бой", "TODO"],
-                ["к количеству получаемого угля", "TODO"],
-                ["Символизирует успех и достижения вашего клана.", "TODO"],
+                ["от стоимости обслуживания кораблей I–X уровней", "I-X级战舰的维护费用"],
+                ["от стоимости исследуемых кораблей I–X уровней", "I-X级可研发战舰的购买价格"],
+                ["к опыту за бой на кораблях I–X уровней", "I-X级战舰参加战斗获得的经验"],
+                ["к свободному опыту за бой на кораблях I–X уровней", "I-X级战舰参加战斗所得的全局经验收益"],
+                ["к опыту командира за бой", "参加战斗获得的指挥官经验"],
+                ["к количеству получаемого угля", "军团成员获得的煤炭量"],
+                ["Символизирует успех и достижения вашего клана.", "象征着您所在军团的战功与成就。"],
                 [
                     "Отображает активность клана в Случайных, Ранговых и Кооперативных боях за последний месяц",
-                    "TODO",
+                    "显示您军团成员上个月在随机战、排位战和联合作战中的活跃水平",
                 ],
             ],
         },
@@ -1217,7 +1373,7 @@ if (window.location.host === "clans.korabli.su") {
         {
             isReplace: true,
             translation: [
-                ["Общее количество боёв:", "TODO"],
+                ["Общее количество боёв:", "战斗场次："],
             ]
         }
     ]);
@@ -1237,7 +1393,7 @@ if (window.location.host === "clans.korabli.su") {
             isReplace: true,
             translation: [
                 ['Максимальная численность клана: ', "军团最大成员数："],
-                ['. Есть возможность играть в Клановых боях, используя второй рейтинг', "TODO"]
+                ['. Есть возможность играть в Клановых боях, используя второй рейтинг', "。可以参加更高一级军团战"]
             ]
         }
     ]);
@@ -1257,7 +1413,7 @@ if (window.location.host === "clans.korabli.su") {
             isReplace: true,
             translation: [
                 ['Максимальная численность клана: ', "军团最大成员数："],
-                ['. Есть возможность играть в Клановых боях, используя второй рейтинг', "TODO"],
+                ['. Есть возможность играть в Клановых боях, используя второй рейтинг', "。可以参加更高一级军团战"],
                 ['Отображает активность клана в Клановых боях за последние', "显示过去"],
                 ['дней', "天的军团活动"],
             ]
@@ -1280,8 +1436,9 @@ if (window.location.host === "clans.korabli.su") {
                 ['Не построено', "未建成"],
                 ['Построено', "已建成"],
                 ['Не достигнуто', "未获得"],
+                ['Достигнуто', "已获得"],
                 ['Только командный состав может улучшить строение.', "只有军团指挥可以扩建建筑"],
-                ['Приобретение улучшения нового уровня возможно только после постройки предыдущих.', "TODO"],
+                ['Приобретение улучшения нового уровня возможно только после постройки предыдущих.', "只有完成前一个等级的升级才能继续升级建筑。"],
                 ['Появляется автоматически при достижении определённого количества боёв', "经过一定数量的战斗后自动出现"]
             ]
         },
@@ -1303,7 +1460,7 @@ if (window.location.host === "clans.korabli.su") {
             isReplace: true,
             isReplaceHTML: true,
             translation: [
-                ['Общее количество боёв:', "TODO"]
+                ['Общее количество боёв:', "战斗场次："]
             ]
         },
     ]);
@@ -1312,152 +1469,214 @@ if (window.location.host === "clans.korabli.su") {
         {
             isReplace: true,
             translation: [
-                ['к максимальной численности клана', "TODO"],
-                [' от стоимости исследуемых кораблей I–VI уровней', "TODO"],
-                [' от стоимости исследуемых кораблей VII–VIII уровней', "TODO"],
-                [' от стоимости исследуемых кораблей IX–X уровней', "TODO"],
-                [' к опыту за бой на кораблях I–VI уровней', "TODO"],
-                [' к опыту за бой на кораблях VII–VIII уровней', "TODO"],
-                [' к опыту за бой на кораблях IX–X уровней', "TODO"],
-                [' к свободному опыту за бой на кораблях I–VI уровней', "TODO"],
-                [' к свободному опыту за бой на кораблях VII–VIII уровней', "TODO"],
-                [' к свободному опыту за бой на кораблях IX–X уровней', "TODO"],
-
-                ['Дополнительно ', "TODO"],
-                [' от стоимости обслуживания кораблей I–VI уровней', "TODO"],
-                [' от стоимости обслуживания кораблей VII–VIII уровней', "TODO"],
-                [' от стоимости обслуживания кораблей IX–X уровней', "TODO"],
-                [' от стоимости обслуживания кораблей I–X уровней', "TODO"],
+                ['к максимальной численности клана', "最大军团成员数"],
+                [' от стоимости исследуемых кораблей I–VI уровней', "I-VI级可研发战舰的购买价格"],
+                [' от стоимости исследуемых кораблей VII–VIII уровней', "VII–VIII级可研发战舰的购买价格"],
+                [' от стоимости исследуемых кораблей IX–X уровней', "IX–X级可研发战舰的购买价格"],
+                [' к опыту за бой на кораблях I–VI уровней', "I–VI级战舰参加战斗获得的经验"],
+                [' к опыту за бой на кораблях VII–VIII уровней', "VII–VIII级战舰参加战斗获得的经验"],
+                [' к опыту за бой на кораблях IX–X уровней', "IX–X级战舰参加战斗获得的经验"],
+                [' к свободному опыту за бой на кораблях I–VI уровней', "I-VI级战舰参加战斗所得的全局经验收益"],
+                [' к свободному опыту за бой на кораблях VII–VIII уровней', "VII–VIII级战舰参加战斗所得的全局经验收益"],
+                [' к свободному опыту за бой на кораблях IX–X уровней', "IX–X级战舰参加战斗所得的全局经验收益"],
+                ['Дополнительно ', "另外"],
+                [' от стоимости обслуживания кораблей I–VI уровней', "I–VI级战舰的维护费用"],
+                [' от стоимости обслуживания кораблей VII–VIII уровней', "VII–VIII级战舰的维护费用"],
+                [' от стоимости обслуживания кораблей IX–X уровней', "IX–X级战舰的维护费用"],
+                [' от стоимости обслуживания кораблей I–X уровней', "I-X级战舰的维护费用"],
             ]
         },
+    ]);
+    detect_elements.add([
+        ".ViewClanProfile_ownClanTitleWrap_3ujHe .wru__Menu__menuWrapper .wru__Menu__inner .wru__Menu__item",
+        {
+            isReplace: true,
+            translation: [
+                ['Изменить тег и название', "更改军团标签和名称"],
+                ['Изменить требования клана', "更改军团要求"],
+                ['Изменить описание', "更改军团描述"],
+                ['Правила кланов', "军团规则"],
+                ['Покинуть клан', "退出军团"],
+            ]
+        },
+    ]);
+    detect_elements.add([
+        ".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__body .ClanEditDialogs_clanRename_1DXRB .wru__LabelStyles__label",
+        {
+            isReplace: true,
+            translation: [
+                ['Тeг', "标签"],
+                ['Название', "名称"],
+            ]
+        }
+    ]);
+    detect_elements.add([
+        ".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__footer .ClanEditDialogs_rules_1Wwnk span",
+        {
+            isReplace: true,
+            isReplaceHTML: true,
+            translation: [
+                ['При изменении тега и названия соблюдайте', "更改军团标签和名称时，请遵守"],
+                ['При создании и изменении описания соблюдайте', "在创建和更改军团描述时，请遵守"],
+                ['Правила кланов', "军团规则"],
+            ]
+        }
+    ]);
+    detect_elements.add([
+        ".wru__Dialog__dialogWrapper .wru__Dialog__container .wru__Dialog__footer .ClanEditDialogs_info_1yJjz",
+        {
+            isReplace: true,
+            translation: [
+                ['Изменение названия клана может занять некоторое время.', "更改军团名称可能需要等待一些时间才会生效"],
+            ]
+        }
     ]);
 
     translation.set("Клановый ресурс", "军团资源");
     translation.set('Выбрать действие с кланом', "选择操作");
     translation.set('Нажмите, чтобы открыть описание клана', "点击打开军团描述");
-    translation.set('На что потратить', "TODO");
-    translation.set('Как получить', "TODO");
+    translation.set('На что потратить', "如何花费");
+    translation.set('Как получить', "如何获取");
     translation.set('Перейти к строению', "前往建筑");
-    translation.set('Секретный пункт базирования', "TODO");
-    translation.set('Стальной порт', "TODO");
-    translation.set('Угольный порт', "TODO");
-    translation.set('Сухой док', "TODO");
-    translation.set('Судостроительный завод', "TODO");
+    translation.set('Секретный пункт базирования', "秘密基地");
+    translation.set('Стальной порт', "钢铁港");
+    translation.set('Угольный порт', "煤炭港");
+    translation.set('Сухой док', "干船坞");
+    translation.set('Судостроительный завод', "造船厂");
     translation.set('Казначейство', "库房");
-    translation.set('Конструкторское бюро', "TODO");
-    translation.set('Военно-морское училище', "TODO");
-    translation.set('Научно-исследовательский институт', "TODO");
+    translation.set('Конструкторское бюро', "研发局");
+    translation.set('Военно-морское училище', "海军学院");
+    translation.set('Научно-исследовательский институт', "研究所");
     translation.set('Ростральная колонна', "海战纪念柱");
-    translation.set('Академия', "TODO");
-    translation.set('Дом офицеров', "TODO");
-    translation.set('Боевой флот на рейде', "TODO");
-    translation.set('Флот снабжения и поддержки', "TODO");
-    translation.set('СЕКРЕТНЫЙ ПУНКТ БАЗИРОВАНИЯ', "TODO");
-    translation.set('СТАЛЬНОЙ ПОРТ', "TODO");
-    translation.set('УГОЛЬНЫЙ ПОРТ', "TODO");
-    translation.set('СУХОЙ ДОК', "TODO");
-    translation.set('СУДОСТРОИТЕЛЬНЫЙ ЗАВОД', "TODO");
+    translation.set('Академия', "指挥官学院");
+    translation.set('Дом офицеров', "军官宿舍");
+    translation.set('Боевой флот на рейде', "舰队锚地");
+    translation.set('Флот снабжения и поддержки', "辅助舰队");
+    translation.set('СЕКРЕТНЫЙ ПУНКТ БАЗИРОВАНИЯ', "秘密基地");
+    translation.set('СТАЛЬНОЙ ПОРТ', "钢铁港");
+    translation.set('УГОЛЬНЫЙ ПОРТ', "煤炭港");
+    translation.set('СУХОЙ ДОК', "干船坞");
+    translation.set('СУДОСТРОИТЕЛЬНЫЙ ЗАВОД', "造船厂");
     translation.set('КАЗНАЧЕЙСТВО', "库房");
-    translation.set('КОНСТРУКТОРСКОЕ БЮРО', "TODO");
-    translation.set('ВОЕННО-МОРСКОЕ УЧИЛИЩЕ', "TODO");
-    translation.set('НАУЧНО-ИССЛЕДОВАТЕЛЬСКИЙ ИНСТИТУТ', "TODO");
+    translation.set('КОНСТРУКТОРСКОЕ БЮРО', "研发局");
+    translation.set('ВОЕННО-МОРСКОЕ УЧИЛИЩЕ', "海军学院");
+    translation.set('НАУЧНО-ИССЛЕДОВАТЕЛЬСКИЙ ИНСТИТУТ', "研究所");
     translation.set('РОСТРАЛЬНАЯ КОЛОННА', "海战纪念柱");
-    translation.set('АКАДЕМИЯ', "TODO");
-    translation.set('ДОМ ОФИЦЕРОВ', "TODO");
-    translation.set('БОЕВОЙ ФЛОТ НА РЕЙДЕ', "TODO");
-    translation.set('ФЛОТ СНАБЖЕНИЯ И ПОДДЕРЖКИ', "TODO");
-    translation.set('Боевой флот на рейде', "TODO");
-    translation.set('Флот снабжения и поддержки', "TODO");
+    translation.set('АКАДЕМИЯ', "指挥官学院");
+    translation.set('ДОМ ОФИЦЕРОВ', "军官宿舍");
+    translation.set('БОЕВОЙ ФЛОТ НА РЕЙДЕ', "舰队锚地");
+    translation.set('ФЛОТ СНАБЖЕНИЯ И ПОДДЕРЖКИ', "辅助舰队");
+    translation.set('Боевой флот на рейде', "舰队锚地");
     translation.set(
         'Даёт экономические бонусы для суперкораблей. Список бонусов увеличивается в зависимости от количества улучшений: увеличение опыта корабля за бой, уменьшение стоимости в дереве развития, увеличение свободного опыта за бой.',
-        "TODO"
+        "为超级战舰提供经济加成。加成列表会根据建筑等级的提升而增加：增加战舰战斗获得的经验、降低科技树中可研发战舰的购买价格、增加战舰战斗获得的全局经验。"
     );
     translation.set(
         'Увеличивает количество получаемой стали.',
-        "TODO"
+        "增加军团成员获得的钢铁量。"
     );
     translation.set(
         'Увеличивает количество получаемого угля.',
-        "TODO"
+        "增加军团成员获得的煤炭量。"
     );
     translation.set(
         'Уменьшает стоимость обслуживания кораблей определённых уровней.',
-        "TODO"
+        "降低特定等级战舰的维护费用。"
     );
     translation.set(
         'Уменьшает стоимость исследуемых кораблей определённых уровней.',
-        "TODO"
+        "降低特定等级可研发战舰的购买价格。"
     );
     translation.set(
         'Позволяет распределять ресурсы клана и регулярные награды.',
-        "TODO"
+        "允许您分配军团资源和奖励"
     );
     translation.set(
         'Увеличивает свободный опыт, получаемый за бой на кораблях определённых уровней.',
-        "TODO"
+        "增加在特定等级的战舰上作战获得的全局经验。"
     );
     translation.set(
         'Увеличивает опыт корабля, получаемый за бой на кораблях определённых уровней.',
-        "TODO"
+        "增加在特定等级的战舰上作战获得的经验。"
     );
     translation.set(
         'Увеличивает количество получаемых очков исследования.',
-        "TODO"
+        "增加军团成员获得的研究点量。"
     );
     translation.set(
         'Символизирует успех и достижения вашего клана.',
-        "TODO"
+        "象征着您所在军团的战功与成就。"
     )
     translation.set(
         'Увеличивает опыт командира, получаемый за бой.',
-        "TODO",
+        "增加战斗获得的指挥官经验。",
     );
     translation.set(
         'Увеличивает максимальное количество участников клана и даёт возможность участвовать в овых боях, используя второй рейтинг.',
-        "TODO"
+        "扩增军团能容纳成员的最大数量，并允许军团参加更高一级的军团战。"
     );
     translation.set(
         'Отображает активность клана в овых боях за последние 90 дней',
-        "TODO"
+        "显示该军团在过去90天内的军团战活跃情况"
     );
     translation.set(
         'Отображает активность клана в Случайных, Ранговых и Кооперативных боях за последний месяц',
-        "TODO"
+        "显示您军团成员上个月在随机战、排位战和联合作战中的活跃水平"
     );
     translation.set('ЗАКРЫТЬ', "关闭");
-    translation.set('СТРОЕНИЕ НЕ ВОЗВЕДЕНО', "TODO");
+    translation.set('СТРОЕНИЕ НЕ ВОЗВЕДЕНО', "建筑未建成");
     translation.set('ВЕРНУТЬСЯ НА БАЗУ', "回到基地");
     translation.set('ПЕРЕЙТИ В КАЗНУ', "前往军团库房");
     translation.set('ДОСТИЖЕНИЯ КЛАНА', "军团成就");
     translation.set('ДОСТИЖЕНИЯ ОТСУТСТВУЮТ', "没有成就");
     translation.set('В настоящее время у клана нет достижений', "军团还未获得任何成就");
-    translation.set('УЛУЧШЕНИЕ ДАЁТ СЛЕДУЮЩИЙ БОНУС', "TODO");
-    translation.set('УЛУЧШЕНИЕ ДАЁТ СЛЕДУЮЩИЕ БОНУСЫ', "TODO");
-    translation.set('АКТИВНЫЕ БОНУСЫ СТРОЕНИЯ', "启用奖励");
-    translation.set('Строение не возведено', "TODO");
-    translation.set(' к опыту за бой на суперкораблях', "TODO");
-    translation.set(' от стоимости суперкораблей', "TODO");
-    translation.set(' к свободному опыту за бой на суперкораблях', "TODO");
-    translation.set(' к количеству получаемой стали', "TODO");
-    translation.set(' к количеству получаемого угля', "TODO");
-    translation.set(' от стоимости обслуживания кораблей I–VI уровней', "TODO");
-    translation.set(' от стоимости обслуживания кораблей I–VIII уровней', "TODO");
-    translation.set(' от стоимости обслуживания кораблей I–X уровней', "TODO");
-    translation.set(' от стоимости исследуемых кораблей I–VI уровней', "TODO");
-    translation.set(' от стоимости исследуемых кораблей I–VIII уровней', "TODO");
-    translation.set(' от стоимости исследуемых кораблей I–X уровней', "TODO");
-    translation.set(' к свободному опыту за бой на кораблях I–VI уровней', "TODO");
-    translation.set(' к свободному опыту за бой на кораблях I–VIII уровней', "TODO");
-    translation.set(' к свободному опыту за бой на кораблях I–X уровней', "TODO");
-    translation.set(' к опыту за бой на кораблях I–VI уровней', "TODO");
-    translation.set(' к опыту за бой на кораблях I–VIII уровней', "TODO");
-    translation.set(' к опыту за бой на кораблях I–X уровней', "TODO");
-    translation.set(' к количеству получаемых очков исследования', "TODO");
-    translation.set(' к опыту командира за бой', "TODO");
+    translation.set('УЛУЧШЕНИЕ ДАЁТ СЛЕДУЮЩИЙ БОНУС', "升级后的加成如下");
+    translation.set('УЛУЧШЕНИЕ ДАЁТ СЛЕДУЮЩИЕ БОНУСЫ', "升级后可获得以下加成");
+    translation.set('АКТИВНЫЕ БОНУСЫ СТРОЕНИЯ', "已获得的加成");
+    translation.set('Строение не возведено', "建筑未建成");
+    translation.set(' к опыту за бой на суперкораблях', "超级战舰参加战斗获得的经验");
+    translation.set(' от стоимости суперкораблей', "超级战舰的购买价格");
+    translation.set(' к свободному опыту за бой на суперкораблях', "超级战舰参加战斗所得的全局经验收益");
+    translation.set(' к количеству получаемой стали', "军团成员获得的钢铁量");
+    translation.set(' к количеству получаемого угля', "军团成员获得的煤炭量");
+    translation.set(' от стоимости обслуживания кораблей I–VI уровней', "I–VI级战舰的维护费用");
+    translation.set(' от стоимости обслуживания кораблей I–VIII уровней', "I–VIII级战舰的维护费用");
+    translation.set(' от стоимости обслуживания кораблей I–X уровней', "I-X级战舰的维护费用");
+    translation.set(' от стоимости исследуемых кораблей I–VI уровней', "I–VI级可研发战舰的购买价格");
+    translation.set(' от стоимости исследуемых кораблей I–VIII уровней', "I–VIII级可研发战舰的购买价格");
+    translation.set(' от стоимости исследуемых кораблей I–X уровней', "I-X级可研发战舰的购买价格");
+    translation.set(' к свободному опыту за бой на кораблях I–VI уровней', "I–VI级战舰参加战斗所得的全局经验收益");
+    translation.set(' к свободному опыту за бой на кораблях I–VIII уровней', "I–VIII级战舰参加战斗所得的全局经验收益");
+    translation.set(' к свободному опыту за бой на кораблях I–X уровней', "I-X级战舰参加战斗所得的全局经验收益");
+    translation.set(' к опыту за бой на кораблях I–VI уровней', "I–VI级战舰参加战斗获得的经验");
+    translation.set(' к опыту за бой на кораблях I–VIII уровней', "I–VIII级战舰参加战斗获得的经验");
+    translation.set(' к опыту за бой на кораблях I–X уровней', "I-X级战舰参加战斗获得的经验");
+    translation.set(' к количеству получаемых очков исследования', "军团成员获得的研究点量");
+    translation.set(' к опыту командира за бой', "参加战斗所得的指挥官经验收益");
+    translation.set('Заработанный чистый опыт', "获得的基础经验");
+    translation.set('ТЕГ И НАЗВАНИЕ', "军团标签和名称");
+    translation.set('ОПИСАНИЕ', "军团描述");
+    translation.set('ПРАВИЛА КЛАНОВ', "军团规则");
+    translation.set('ПОКИНУТЬ КЛАН', "退出军团");
+    translation.set('ОТМЕНИТЬ', "取消");
+    translation.set(
+        'Сокращённое название клана (от 2 до 5 символов: цифр, латинских букв, «_» или «-»), которое вы будете видеть в игре.',
+        "您将在游戏中看到的军团名称缩写（2至5个字符，支持数字、英文字母、'_' 或 '-'）"
+    );
+    translation.set('ОТМЕНА', "取消");
+    translation.set('Вы уверены, что хотите покинуть клан?', "您确定要离开军团吗？");
+    translation.set(
+        'Добытые в этом клане баррели нефти обнуляются. В новом клане вы начнёте зарабатывать их заново.',
+        "在该军团中获得的石油计数将重置为零。在新军团中，您将重新开始计数。"
+    );
+    translation.set(
+        'После ухода из клана в течение 3 дней вы не сможете вступить в клан или создать новый.',
+        "一旦离开军团，您将在3天内无法加入军团或创建新军团。"
+    );
 
     //----------------------------------------------------------------------
+
+    Localizer_Init();
 }
 
 //-------------------------------------------------军团结束--------------------------------------------------------
-
-Localizer_Init();

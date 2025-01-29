@@ -3,6 +3,26 @@
 
 可参考项目 [InGameBrowserLocalizer](https://github.com/windofxy/Lesta-InGameBrowser-Localization-Framework-Public/tree/main/InGameBrowserLocalizer) 文件夹下的 [localizer-example.js](https://github.com/windofxy/Lesta-InGameBrowser-Localization-Framework-Public/blob/main/InGameBrowserLocalizer/localizer-example.js) 文件进行食用<br>
 
+## 准备工作
+
+以指定的格式创建localizer.js文件<br>
+
+```javascript
+//***替换为要本地化的模块名，避免汉化内容多次重复加载浪费性能
+if (!window.__localizer_***_loaded__) {
+    window.__localizer_***_loaded__ = true;
+    let detect_elements = window.__localizer__.detect_elements;
+    let translation = window.__localizer__.translation;
+    let Localizer_Init = window.__localizer__.Localizer_Init;
+
+    //下面开始写本地化内容
+
+
+    //最后运行初始化函数让框架载入本地化内容
+    Localizer_Init();
+}
+```
+
 ## 框架内置变量
 
 框架内置了两个集合（Set）<br>
@@ -12,20 +32,22 @@
 ### detect_elements
 
 数值以格式为`[key ,value]`的数组作为值存储<br>
-`key`: 字符串 CSS选择器<br>(如 ``"#wows-react-tooltip-body .Tooltip_accountPremium.Tooltip_activeAccountPremium"``)<br>用以选择要翻译的网页元素<br>
-可参考文档 [菜鸟教程-CSS选择器](https://www.runoob.com/cssref/css-selectors.html) [Document.querySelectorAll](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelectorAll)<br><br>
+`key`: 字符串 CSS选择器<br>(如 ``"#wows-react-tooltip-body .Tooltip_accountPremium.Tooltip_activeAccountPremium"``)<br>用以选择要翻译的网页元素<br><br>
+可参考文档<br>
+[菜鸟教程-CSS选择器](https://www.runoob.com/cssref/css-selectors.html)<br>
+[Document.querySelectorAll](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelectorAll)<br><br>
 `value`: js对象，结构如下<br>
 
 ```javascript
-    {
-        isReplace: true,
-        isReplaceHTML: true,
-        translation: [
-            ["Корабельный премиум аккаунт", "战舰世界高级账户"],
-            ["дней", "天"],
-            ["часов", "时"],
-        ],
-    }
+{
+    isReplace: true,
+    isReplaceHTML: true,
+    translation: [
+        ["Корабельный премиум аккаунт", "战舰世界高级账户"],
+        ["дней", "天"],
+        ["часов", "时"],
+    ],
+}
 ```
 
 `isReplace`: 布尔值 是否使用替换模式 可选 不填默认不使用替换模式<br>
@@ -48,11 +70,11 @@
 示例<br>
 
 ```javascript
-    //添加HTML元素（覆盖模式）
-    detect_elements.add([".Accordion_title", { isReplace: false }]);
-    
-    //添加翻译文本
-    translation.set("За новогодними контейнерами!", "新年补给箱!");
+//添加HTML元素（覆盖模式）
+detect_elements.add([".Accordion_title", {}]);
+
+//添加翻译文本
+translation.set("За новогодними контейнерами!", "新年补给箱!");
 ```
 
 效果图<br>
@@ -65,18 +87,18 @@
 示例<br>
 
 ```javascript
-    //添加HTML元素（替换模式）
-    detect_elements.set([
-        "#wows-react-tooltip-body .Tooltip_accountPremium.Tooltip_activeAccountPremium",
-        {
-            isReplace: true,
-            translation: [
-                ["Корабельный премиум аккаунт", "战舰世界高级账户"],
-                ["дней", "天"],
-                ["часов", "时"],
-            ],
-        }
-    ]);
+//添加HTML元素（替换模式）
+detect_elements.add([
+    "#wows-react-tooltip-body .Tooltip_accountPremium.Tooltip_activeAccountPremium",
+    {
+        isReplace: true,
+        translation: [
+            ["Корабельный премиум аккаунт", "战舰世界高级账户"],
+            ["дней", "天"],
+            ["часов", "时"],
+        ],
+    }
+]);
 ```
 
 效果图<br>
@@ -118,8 +140,8 @@
 
 将调试参数添加到汉化代码之前即可启用调试功能
 
-`localizer_Debug.showPerformanceData` 布尔值 是否在浏览器控制台显示单次本地化更新耗费的时间<br>
-`localizer_Debug.showMutationTargetClassName` 布尔值 在运行模式为事件模式时（详见下面进阶用法部分），在控制台显示触发事件元素的ClassName，用于在事件模式下某些元素无法汉化时反馈问题用
+`window.__localizer__.localizer_Debug.showPerformanceData` 布尔值 是否在浏览器控制台显示单次本地化更新耗费的时间<br>
+`window.__localizer__.localizer_Debug.showMutationTargetClassName` 布尔值 在运行模式为事件模式时（详见下面进阶用法部分），在控制台显示触发事件元素的ClassName，用于在事件模式下某些元素无法汉化时反馈问题用
 
 ---
 
@@ -129,17 +151,17 @@
 
 你可以根据情况选择本地化框架的运行模式，从而改善本地化的性能及网页崩溃问题<br>
 
-在汉化文件开头设置 `localizer_mode.mode` 字符串 设定运行模式 不使用时默认为轮询模式<br>
+在汉化文件开头设置 `window.__localizer__.localizer_mode.mode` 字符串 设定运行模式 不使用时默认为轮询模式<br>
 
-### 轮询模式 `localizer_mode.mode = "Polling"`
+### 轮询模式 `window.__localizer__.localizer_mode.mode = "Polling"`
 
-在此模式下，框架将会以固定的时间间隔更新网页，该间隔通过设置 `localizer_mode.interval` 进行调整<br>
+在此模式下，框架将会以固定的时间间隔更新网页，该间隔通过设置 `window.__localizer__.localizer_mode.interval` 进行调整<br>
 
-`localizer_mode.interval` 数字 单位为ms，可选，不填默认为500<br>
+`window.__localizer__.localizer_mode.interval` 数字 单位为ms，可选，不填默认为500<br>
 
 该模式的性能损耗较为固定，本地化覆盖完全，但可能在不正确的时机更新网页导致网页崩溃或元素失效<br>
 
-### 事件模式 `localizer_mode.mode = "Event"`
+### 事件模式 `window.__localizer__.localizer_mode.mode = "Event"`
 
 在此模式下，在特定元素进行更新时（由框架开发者进行设定），框架才会更新网页<br>
 
@@ -151,16 +173,56 @@
 
 ### 根据域名判断加载的网页，从而只选择部分文本加入译文集，减少性能浪费
 
-可在浏览器F12控制台输入`console.log(window.location.host)`获取当前网页域名
+可在浏览器F12控制台输入`console.log(window.location.host)`获取当前网页域名<br>
 
-示例代码
+示例代码<br>
 
 ```javascript
-    //军团网页域名
-    if (window.location.host === "clans.korabli.su")
-    {
-        //在里面输入汉化代码
-    }
+//***替换为要本地化的模块名，避免汉化内容多次重复加载浪费性能
+//添加域名判定
+if (!window.__localizer_***_loaded__ && window.location.host === "clans.korabli.su") {
+    window.__localizer_***_loaded__ = true;
+    let detect_elements = window.__localizer__.detect_elements;
+    let translation = window.__localizer__.translation;
+    let Localizer_Init = window.__localizer__.Localizer_Init;
+
+    //下面开始写本地化内容
+
+
+    //最后运行初始化函数让框架载入本地化内容
+    Localizer_Init();
+}
 ```
+
+---
+
+### 使用正则表达式编写本地化内容
+
+参考资料<br>
+[菜鸟教程-正则表达式](https://www.runoob.com/regexp/regexp-tutorial.html)<br>
+[JavaScript正则表达式替换指南：从入门到精通 (只需查看2.3 替换模式中的特殊变量部分)](https://www.oryoy.com/news/javascript-zheng-ze-biao-da-shi-ti-huan-zhi-nan-cong-ru-men-dao-jing-tong-jie-jue-ri-chang-bian-ma-n.html)<br>
+
+正则表达式仅在替换模式下可用，可以解决文本生硬替换造成的语序问题，以及对含有可变内容的文本进行本地化<br>
+
+示例代码<br>
+
+```javascript
+detect_elements.add([
+    ".View_contentWrapper .View_mainContent .BundlePageHeader_headerWrapper .BundlePageHeader_preBundleTitle .BundlePageHeader_shipInfo",
+    {
+        isReplace: true,
+        translation: [
+            [/Эсминец (.*) уровня/g, "$1级驱逐舰"],
+            [/Крейсер (.*) уровня/g, "$1级巡洋舰"],
+            [/Линкор (.*) уровня/g, "$1级战列舰"],
+            [/Авианосец (.*) уровня/g, "$1级航空母舰"],
+            [/Подводная лодка (.*) уровня/g, "$1级潜艇"],
+        ]
+    }
+]);
+```
+
+效果图<br>
+
 
 ---
